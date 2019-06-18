@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_wrdcnt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcharman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/12 13:21:34 by bcharman          #+#    #+#             */
-/*   Updated: 2019/05/30 11:39:47 by bcharman         ###   ########.fr       */
+/*   Created: 2019/06/04 11:46:22 by bcharman          #+#    #+#             */
+/*   Updated: 2019/06/04 11:56:00 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+int	ft_wrdcnt(char const *s, char c)
 {
-	int		i;
-	char	ch;
+	int i;
+	int res;
 
 	i = -1;
-	ch = (char)c;
+	res = 0;
 	while (s[++i])
-		if (s[i] == ch)
-			return ((char*)(s + i));
-	if (s[i] == ch)
-		return ((char*)(s + i));
-	return (NULL);
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+			res++;
+	return (res);
 }

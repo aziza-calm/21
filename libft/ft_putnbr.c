@@ -6,7 +6,7 @@
 /*   By: bcharman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 14:05:32 by bcharman          #+#    #+#             */
-/*   Updated: 2019/05/12 19:32:45 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/06/01 17:44:23 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,5 @@
 
 void	ft_putnbr(int nb)
 {
-	int i;
-	int f;
-
-	i = 1000000000;
-	f = 1;
-	if (nb < 0)
-	{
-		ft_putchar('-');
-		f = -1;
-	}
-	if (nb == 0)
-		ft_putchar('0');
-	else
-		while (nb / i == 0)
-			i = i / 10;
-	while (nb != 0)
-	{
-		ft_putchar(48 + f * (nb / i));
-		nb = nb % i;
-		i = i / 10;
-	}
+	ft_putnbr_fd(nb, 1);
 }

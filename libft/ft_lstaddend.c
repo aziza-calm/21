@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_lstaddend.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcharman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/12 13:21:34 by bcharman          #+#    #+#             */
-/*   Updated: 2019/05/30 11:39:47 by bcharman         ###   ########.fr       */
+/*   Created: 2019/06/04 12:22:15 by bcharman          #+#    #+#             */
+/*   Updated: 2019/06/04 12:30:47 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+void	ft_lstaddend(t_list **alst, t_list *new)
 {
-	int		i;
-	char	ch;
-
-	i = -1;
-	ch = (char)c;
-	while (s[++i])
-		if (s[i] == ch)
-			return ((char*)(s + i));
-	if (s[i] == ch)
-		return ((char*)(s + i));
-	return (NULL);
+	if (new)
+		while (*alst)
+		{
+			if (!(*alst)->next)
+			{
+				(*alst)->next = new;
+				new->next = NULL;
+				return ;
+			}
+			*alst = (*alst)->next;
+		}
 }

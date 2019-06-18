@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_lstfiprev.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcharman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/12 13:21:34 by bcharman          #+#    #+#             */
-/*   Updated: 2019/05/30 11:39:47 by bcharman         ###   ########.fr       */
+/*   Created: 2019/06/04 12:08:54 by bcharman          #+#    #+#             */
+/*   Updated: 2019/06/04 12:22:37 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+t_list	*ft_lstfiprev(t_list **begin, t_list *cur)
 {
-	int		i;
-	char	ch;
-
-	i = -1;
-	ch = (char)c;
-	while (s[++i])
-		if (s[i] == ch)
-			return ((char*)(s + i));
-	if (s[i] == ch)
-		return ((char*)(s + i));
+	if (cur)
+		while (*begin)
+		{
+			if ((*begin)->next == cur)
+				return (*begin);
+			*begin = (*begin)->next;
+		}
 	return (NULL);
 }

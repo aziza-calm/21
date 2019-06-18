@@ -6,7 +6,7 @@
 /*   By: bcharman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/12 18:40:33 by bcharman          #+#    #+#             */
-/*   Updated: 2019/05/12 19:12:20 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/05/31 12:38:03 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ char	*ft_strtrim(char const *s)
 	int		j;
 	char	*new;
 
-	n = ft_strlen(s);
-	while (s[n] == ' ' || s[n] == '\n' || s[n] == '\t')
+	if (!s)
+		return (NULL);
+	n = ft_strlen(s) - 1;
+	while (n > -1 && (s[n] == ' ' || s[n] == '\n' || s[n] == '\t'))
 		n--;
 	i = 0;
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
+	while (i < n && (s[i] == ' ' || s[i] == '\n' || s[i] == '\t'))
 		i++;
-	new = (char*)malloc(n - i);
-	if (new == NULL)
+	if (i == n)
 		return (NULL);
-	j = 0;
-	while (i < n)
-	{
-		new[j] = s[i];
-		i++;
-		j++;
-	}
+	if (!(new = (char*)malloc((n - i + 2) * sizeof(char))))
+		return (NULL);
+	j = -1;
+	while (i <= n)
+		new[++j] = s[i++];
+	new[++j] = '\0';
 	return (new);
 }
