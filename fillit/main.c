@@ -6,7 +6,7 @@
 /*   By: bcharman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 17:00:09 by bcharman          #+#    #+#             */
-/*   Updated: 2019/07/16 17:17:53 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/07/16 18:18:12 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int main(int argc, char **argv)
 {
 	int fd;
 
-	if (argc == 2)
+	if (argc != 2)
 	{
-		fd = open(argv[1], O_RDONLY);
-		printf("yay!\n");
-		close(fd);
+		write(1, "usage: ./fillit <filename>\n", 27);
+		return (0);
 	}
-	else
-		printf("not yay!\n");
+	fd = open(argv[1], O_RDONLY);
+	printf("yay!\n");
+	close(fd);
 	return (0);
 }
