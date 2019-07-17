@@ -18,9 +18,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct check_lst
+typedef struct      s_lst
 {
     char            coor[4][2];
     char            letter;
-};
+}                   t_lst;
+
+int validation(int fd);
 #endif

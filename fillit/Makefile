@@ -1,4 +1,5 @@
-SRC = main.c
+SRC = main.c \
+		validation.c
 OBJ = ${SRC:.c=.o}
 INCL = ft.h
 NAME = fillit
@@ -13,6 +14,7 @@ $(OBJ):
 
 clean:
 	rm -f *.o
+	rm -f ft.h.gch
 
 fclean: clean
 	rm -f fillit
