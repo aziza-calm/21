@@ -73,9 +73,15 @@ int validation(int fd)
     {
         buf[ret] = '\0';
         if ((neighbour_num(buf)) != 6 && (neighbour_num(buf)) != 8) // проверка количества соседей
+        {
+            printf("wrong number of neighbours\n");
             return (-1);
+        }
         if ((dot_num(buf)) != 12 || (hash_num(buf)) != 4) // проверка количества точек(dot) и решеток(hash)
+        {
+            printf("wrong number of dots or hashes\n");
             return (-1);
+        }
     }
     return (0);
 }

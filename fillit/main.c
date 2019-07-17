@@ -16,6 +16,7 @@ int main(int argc, char **argv)
 {
 	int fd;
 	int ret;
+	char buf[550];
 
 	if (argc != 2) // по заданию нужно сделать usage, вполне стандартная вещь
 	{
@@ -24,8 +25,12 @@ int main(int argc, char **argv)
 	}
 	fd = open(argv[1], O_RDONLY); // открываем скормленный файл
 	// Проверка на случай, если в файле больше 26 фигур
-	if ((ret = read(fd, NULL, 600)) > 545 || ret == -1)
+	if ((ret = read(fd, buf, 600)) > 545 || ret == -1)
+	{
+		printf("Too much figures! ret = %d\n fd = %d", ret, fd);
+		close(fd);
     	return (0);
+	}
 	close(fd); // т к прочли весь файл, нужно его закрыть 
 	fd = open(argv[1], O_RDONLY); // и снова открыть
 	if ((validation(fd)) == -1) // валидация
