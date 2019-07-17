@@ -6,7 +6,7 @@ NAME = fillit
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc -g $(OBJ) $(INCL)
+	gcc -g $(OBJ) -I $(INCL) -o fillit
 
 $(OBJ):
 	gcc -c $(SRC)

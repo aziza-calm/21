@@ -18,4 +18,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+typedef struct check_lst
+{
+    char            coor[4][2];
+    char            letter;
+};
 #endif

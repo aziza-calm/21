@@ -22,7 +22,7 @@ int main(int argc, char **argv)
 		return (0);
 	}
 	fd = open(argv[1], O_RDONLY);
-	printf("yay!\n");
+	validation(fd);
 	close(fd);
 	return (0);
 }
