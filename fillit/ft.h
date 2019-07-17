@@ -18,11 +18,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct      s_lst
+typedef struct      s_lst // это пока бесполезная структура
 {
     char            coor[4][2];
     char            letter;
 }                   t_lst;
 
 int validation(int fd);
+
 #endif
