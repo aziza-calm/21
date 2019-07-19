@@ -6,7 +6,7 @@
 /*   By: bcharman <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 17:00:09 by bcharman          #+#    #+#             */
-/*   Updated: 2019/07/16 18:18:12 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/07/19 10:51:52 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,14 @@ int main(int argc, char **argv)
 	int ret;
 	char buf[550];
 
-	if (argc != 2) // по заданию нужно сделать usage, вполне стандартная вещь
+	if (argc != 2)
 	{
 		write(1, "usage: ./fillit <filename>\n", 27);
 		return (0);
 	}
-	fd = open(argv[1], O_RDONLY); // открываем скормленный файл
-	// Проверка на случай, если в файле больше 26 фигур
-	if ((ret = read(fd, buf, 600)) > 545 || ret == -1)
-	{
-		printf("Too much figures! ret = %d\n fd = %d", ret, fd);
-		close(fd);
-    	return (0);
-	}
-	close(fd); // т к прочли весь файл, нужно его закрыть 
-	fd = open(argv[1], O_RDONLY); // и снова открыть
-	if ((validation(fd)) == -1) // валидация
-		printf("Invalid input or couldn't read file :(\n");
-	//normalization(fd); //нормализация (перемещаем фигуры выше и левее)
+	fd = open(argv[1], O_RDONLY);
+	if ((validation(fd)) == -1)
+		return (0);
 	close(fd);
 	return (0);
 }
