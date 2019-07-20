@@ -1,5 +1,6 @@
 SRC = main.c \
-		validation.c
+		validation.c \
+		reading.c
 OBJ = ${SRC:.c=.o}
 INCL = ft.h
 NAME = fillit
@@ -7,7 +8,7 @@ NAME = fillit
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc -g $(OBJ) -I $(INCL) -o fillit
+	gcc -g $(OBJ) -I $(INCL) libft/libft.a -o fillit
 
 $(OBJ):
 	gcc -c $(SRC)

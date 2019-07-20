@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcharman <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bcharman <bcharman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 12:21:17 by bcharman          #+#    #+#             */
-/*   Updated: 2019/07/19 11:10:40 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/07/20 16:38:33 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,24 @@ int	hash_num(char buf[22])
     hash_num = 0;
     i = -1;
     while (buf[++i])
+	{
         if (buf[i] == '#')
             hash_num++;
+	}
     return (hash_num);
+}
+
+int	sn_num(char buf[22])
+{
+    int sn_num;
+    int i;
+    
+    sn_num = 0;
+    i = -1;
+    while (buf[++i])
+        if (buf[i] == '\n')
+            sn_num++;
+    return (sn_num);
 }
 
 int neighbour_num(char buf[22])
@@ -62,27 +77,29 @@ int neighbour_num(char buf[22])
     return (n);
 }
 
-int validation(int fd)
+int validation(int fd, int *k)
 {
     char buf[22];
     int ret;
-    int k;
 
-    k = 0;
+    *k = 0;
     while ((ret = read(fd, buf, 21)))
     {
         buf[ret] = '\0';
+		if (buf[0] == '\n')
+			return (-1);
         if ((neighbour_num(buf)) != 6 && (neighbour_num(buf)) != 8)
-        {
-            printf("wrong number of neighbours %d\n", neighbour_num(buf));
-            //return (-1);
-        }
-        if ((dot_num(buf)) != 12 || (hash_num(buf)) != 4)
-        {
-            printf("wrong number of dots or hashes\n");
             return (-1);
-        }
+        if ((dot_num(buf)) != 12 || (hash_num(buf)) != 4)
+            return (-1);
+        if (!((sn_num(buf)) == 5 || (ret == 19 && (sn_num(buf)) == 3))
+                && !((sn_num(buf) == 5) || (ret == 20 && (sn_num(buf)) == 4)))
+            return (-1);
+		(*k)++;
     }
-	printf("everything is ok\n");
+	if (ret == 0 && *k == 0)
+		return (-1);
+	if (*k > 26)
+		return (-1);
     return (0);
 }

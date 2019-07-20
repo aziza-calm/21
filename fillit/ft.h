@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcharman <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bcharman <bcharman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 17:02:33 by bcharman          #+#    #+#             */
-/*   Updated: 2019/07/16 17:17:11 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/07/20 18:01:00 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct      s_lst // это пока бесполезная структура
+typedef struct      s_tetr
 {
     char            coor[4][2];
     char            letter;
-}                   t_lst;
+    struct s_tetr   *next;
+}                   t_tetr;
 
-int validation(int fd);
+int     validation(int fd, int *k);
+t_tetr	*reading(int fd);
 
 #endif
