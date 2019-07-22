@@ -1,6 +1,8 @@
 SRC = main.c \
 		validation.c \
-		reading.c
+		reading.c \
+		map.c \
+		print_map.c
 OBJ = ${SRC:.c=.o}
 INCL = ft.h
 NAME = fillit

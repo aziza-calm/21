@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft.h                                               :+:      :+:    :+:   */
+/*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcharman <bcharman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/16 17:02:33 by bcharman          #+#    #+#             */
-/*   Updated: 2019/07/22 19:35:18 by bcharman         ###   ########.fr       */
+/*   Created: 2019/07/22 19:26:22 by bcharman          #+#    #+#             */
+/*   Updated: 2019/07/22 19:31:27 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_H
-# define FT_H
+#include "ft.h"
 
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-typedef struct      s_tetr
+void    print_map(char **map, int size)
 {
-    char            coor[4][2];
-    char            letter;
-    struct s_tetr   *next;
-}                   t_tetr;
+    int i;
+    int j;
 
-int     validation(int fd, int *k);
-t_tetr	*reading(int fd);
-char    **solve_map(t_tetr *tetr, int k);
-void    print_map(char **map, int size);
-
-#endif
+    i = -1;
+    while (++i < size)
+    {
+        j = -1;
+        while (++j < size)
+            write(1, &map[i][j], 1);
+        write(1, "\n", 1);
+    }
+}
