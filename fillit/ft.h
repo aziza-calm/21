@@ -6,7 +6,7 @@
 /*   By: bcharman <bcharman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 17:02:33 by bcharman          #+#    #+#             */
-/*   Updated: 2019/07/22 19:35:18 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/07/28 19:54:56 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ typedef struct      s_tetr
 
 int     validation(int fd, int *k);
 t_tetr	*reading(int fd);
-char    **solve_map(t_tetr *tetr, int k);
+char    **solve_map(t_tetr *tetr, int *k);
 void    print_map(char **map, int size);
+int     normal(t_tetr *tetr);
+void    free_map(char ***map, int a);
 
 #endif

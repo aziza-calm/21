@@ -6,7 +6,7 @@
 /*   By: bcharman <bcharman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 19:17:53 by bcharman          #+#    #+#             */
-/*   Updated: 2019/07/22 19:35:05 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/07/28 20:13:46 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,54 +32,75 @@ char **create_map(t_tetr *tetr, int a)
 	return (map);
 }
 
-int		get_closest(t_tetr *tetr)
+int	try_me(char ***map, t_tetr *tetr, int xy[2], int a)
 {
 	int j;
-	int min;
-	int ind;
 
-	min = 100000;
 	j = -1;
 	while (++j < 4)
-		if (ft_sqrt(tetr->coor[j][0] * tetr->coor[j][0]
-			+ tetr->coor[j][1] * tetr->coor[j][1]) < min)
-			{
-				min = ft_sqrt(tetr->coor[j][0] * tetr->coor[j][0]
-					+ tetr->coor[j][1] * tetr->coor[j][1]);
-				ind = j;
-			}
-	return (ind);
+	{
+		if ((xy[0] + tetr->coor[j][0] >= a &&
+			xy[1] + tetr->coor[j][1] >= a) ||
+			(*map)[xy[0] + tetr->coor[j][0]][xy[1] + tetr->coor[j][1]] != '.')
+			return (0);
+		(*map)[xy[0] + tetr->coor[j][0]][xy[1] + tetr->coor[j][1]] = tetr->letter;
+	}
+	// printf("This is %d %d trial\n", xy[0], xy[1]);
+	// print_map(*map, a);
+	// printf("\n");
+	return (1);
 }
 
-char **fill_map(char **map, t_tetr *tetr, int a)
+void erase_me_please(char ***map, t_tetr *tetr, int xy[2])
 {
-	int x;
-	int y;
-	int i;
 	int j;
 
-	j = get_closest(tetr);
-	y = -1;
-	while (++y < 1)
-	{
-		x = -1;
-		while (++x < 1)
-		{
-			j = -1;
-			while (++j < 4)
-				map[x + tetr->coor[j][0]][y+tetr->coor[j][1]] = tetr->letter;
-		}
-	}
-	return (map);
+	j = -1;
+	while (++j < 4)
+		(*map)[xy[0] + tetr->coor[j][0]][xy[1] + tetr->coor[j][1]] = '.';
+
 }
 
-char **solve_map(t_tetr *tetr, int k)
+int fill_map(char ***map, t_tetr *tetr, int a)
+{
+	int xy[2];
+	int i;
+
+	if (tetr == NULL)
+		return (1);
+	printf("this is letter %c\n", tetr->letter);
+	print_map(*map, a);
+	xy[1] = -1;
+	while (++xy[1] < a)
+	{
+		xy[0] = -1;
+		while (++xy[0] < a)
+		{
+			if ((try_me(map, tetr, xy, a)))
+			{
+				if ((fill_map(map, tetr->next, a)))
+					return (1);
+				else
+					erase_me_please(map, tetr, xy);
+			}
+		}
+	}
+	return (0);
+}
+
+char **solve_map(t_tetr *tetr, int *k)
 {
     char    **map;
     int     a;
 
-    a = ft_sqrt(k * 4);
+    a = ft_sqrt(*k * 4);
     map = create_map(tetr, a);
-    map = fill_map(map, tetr, a);
+    while (!(fill_map(&map, tetr, a)))
+	{
+		free_map(&map, a);
+		a++;
+		map = create_map(tetr, a);
+	}
+	*k = a;
 	return (map);
 }

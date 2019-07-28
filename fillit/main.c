@@ -6,7 +6,7 @@
 /*   By: bcharman <bcharman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 17:00:09 by bcharman          #+#    #+#             */
-/*   Updated: 2019/07/22 19:39:08 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/07/28 20:39:04 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,18 @@ int main(int argc, char **argv)
 	close(fd);
 	fd = open(argv[1], O_RDONLY);
 	tetr = reading(fd);
-	// while (tetr)
-	// {
-	// 	int j = -1;
-	// 	printf("%c\n", tetr->letter);
-	// 	while (++j < 4)
-	// 			printf("(%c, %c)\n", tetr->coor[j][0] + '0', tetr->coor[j][1] + '0');
-	// 	tetr = tetr->next;
-	// 	printf("%p\n", tetr);
-	// }
 	printf("here\n");
-	map = solve_map(tetr, k);
-	printf("then here\n");
-	print_map(map, ft_sqrt(k * 4));
+	while (tetr)
+	{
+		printf("this is letter %c\n", tetr->letter);
+		int j = -1;
+		while (++j < k)
+			printf("(%d, %d)\n", tetr->coor[j][0] + '0', tetr->coor[j][1] + '0');
+		tetr = tetr->next;
+	}
+	// normal(tetr);
+	// map = solve_map(tetr, &k);
+	// print_map(map, k);
 	close(fd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bcharman <bcharman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 16:36:13 by bcharman          #+#    #+#             */
-/*   Updated: 2019/07/20 18:50:22 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/07/28 20:38:59 by bcharman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,26 @@ t_tetr	*create_tetr(char buf[22], int l)
 		{
 			new->coor[++j][1] = i % 5;
 			new->coor[j][0] = i / 5;
-			new->letter = 'A' + l;
 		}
 	}
+	new->letter = 'A' + l;
 	new->next = NULL;
 	return (new);
 }
 
-void	tetr_add(t_tetr **tetrises, t_tetr *tetris)
+t_tetr *ft_lstadd2end(t_tetr *tetris, t_tetr *tetrises)
 {
-	if (tetris)
-		{
-			tetris->next = *tetrises;
-			*tetrises = tetris;
-		}
+	t_tetr *start;
+
+	start = tetrises;
+	if (tetrises)
+	{
+		printf("kokoko\n");
+		while (tetrises->next)
+			tetrises = tetrises->next;
+		tetrises->next = tetris;
+	}
+	return (start);
 }
 
 t_tetr	*reading(int fd)
@@ -52,11 +58,15 @@ t_tetr	*reading(int fd)
 	int		l;
 	
 	l = 0;
+	tetrises = NULL;
     while ((ret = read(fd, buf, 21)))
     {
         buf[ret] = '\0';
 		tetris = create_tetr(buf, l);
-		tetr_add(&tetrises, tetris);
+		if (!(tetrises = ft_lstadd2end(tetris, tetrises)))
+			printf("tyutyutyu\n");
+		// tetris->next = tetrises;
+		// tetrises = tetris;
 		l++;
     }
 	return (tetrises);

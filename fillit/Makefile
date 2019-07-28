@@ -2,7 +2,8 @@ SRC = main.c \
 		validation.c \
 		reading.c \
 		map.c \
-		print_map.c
+		print_map.c \
+		normalize.c
 OBJ = ${SRC:.c=.o}
 INCL = ft.h
 NAME = fillit
@@ -13,7 +14,7 @@ $(NAME): $(OBJ)
 	gcc -g $(OBJ) -I $(INCL) libft/libft.a -o fillit
 
 $(OBJ):
-	gcc -c $(SRC)
+	gcc -g -c $(SRC)
 
 clean:
 	rm -f *.o
