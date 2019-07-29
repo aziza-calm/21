@@ -3,7 +3,8 @@ SRC = main.c \
 		reading.c \
 		map.c \
 		print_map.c \
-		normalize.c
+		normalize.c \
+		ft_sqrt.c
 OBJ = ${SRC:.c=.o}
 INCL = ft.h
 NAME = fillit
@@ -11,7 +12,7 @@ NAME = fillit
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc -g $(OBJ) -I $(INCL) libft/libft.a -o fillit
+	gcc -g $(OBJ) -I $(INCL) -o fillit
 
 $(OBJ):
 	gcc -g -c $(SRC)

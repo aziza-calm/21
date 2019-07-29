@@ -39,12 +39,16 @@ t_tetr *ft_lstadd2end(t_tetr *tetris, t_tetr *tetrises)
 	t_tetr *start;
 
 	start = tetrises;
-	if (tetrises)
+	if (tetris)
 	{
-		printf("kokoko\n");
-		while (tetrises->next)
-			tetrises = tetrises->next;
-		tetrises->next = tetris;
+		if (tetrises)
+		{
+			while (tetrises->next)
+				tetrises = tetrises->next;
+			tetrises->next = tetris;
+		}
+		else
+			start = tetris;
 	}
 	return (start);
 }
@@ -63,10 +67,7 @@ t_tetr	*reading(int fd)
     {
         buf[ret] = '\0';
 		tetris = create_tetr(buf, l);
-		if (!(tetrises = ft_lstadd2end(tetris, tetrises)))
-			printf("tyutyutyu\n");
-		// tetris->next = tetrises;
-		// tetrises = tetris;
+		tetrises = ft_lstadd2end(tetris, tetrises);
 		l++;
     }
 	return (tetrises);

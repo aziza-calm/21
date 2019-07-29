@@ -81,10 +81,12 @@ int validation(int fd, int *k)
 {
     char buf[22];
     int ret;
+    int not_end;
 
     *k = 0;
     while ((ret = read(fd, buf, 21)))
     {
+        not_end = ret - 20;
         buf[ret] = '\0';
 		if (buf[0] == '\n')
 			return (-1);
@@ -92,14 +94,13 @@ int validation(int fd, int *k)
             return (-1);
         if ((dot_num(buf)) != 12 || (hash_num(buf)) != 4)
             return (-1);
-        if (!((sn_num(buf)) == 5 || (ret == 19 && (sn_num(buf)) == 3))
-                && !((sn_num(buf) == 5) || (ret == 20 && (sn_num(buf)) == 4)))
+        if ((sn_num(buf)) != 4 + not_end)
             return (-1);
 		(*k)++;
     }
 	if (ret == 0 && *k == 0)
 		return (-1);
-	if (*k > 26)
+	if (*k > 26 || not_end)
 		return (-1);
     return (0);
 }

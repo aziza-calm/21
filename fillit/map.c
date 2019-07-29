@@ -6,12 +6,11 @@
 /*   By: bcharman <bcharman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 19:17:53 by bcharman          #+#    #+#             */
-/*   Updated: 2019/07/28 20:13:46 by bcharman         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:58:47 by sdeidre          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft.h"
-#include "./libft/libft.h"
 
 char **create_map(t_tetr *tetr, int a)
 {
@@ -38,16 +37,15 @@ int	try_me(char ***map, t_tetr *tetr, int xy[2], int a)
 
 	j = -1;
 	while (++j < 4)
-	{
-		if ((xy[0] + tetr->coor[j][0] >= a &&
-			xy[1] + tetr->coor[j][1] >= a) ||
+		if (xy[0] + tetr->coor[j][0] >= a ||
+			xy[1] + tetr->coor[j][1] >= a ||
+			xy[0] + tetr->coor[j][0] < 0 ||
+			xy[1] + tetr->coor[j][1] < 0 ||
 			(*map)[xy[0] + tetr->coor[j][0]][xy[1] + tetr->coor[j][1]] != '.')
 			return (0);
+	j = -1;
+	while (++j < 4)
 		(*map)[xy[0] + tetr->coor[j][0]][xy[1] + tetr->coor[j][1]] = tetr->letter;
-	}
-	// printf("This is %d %d trial\n", xy[0], xy[1]);
-	// print_map(*map, a);
-	// printf("\n");
 	return (1);
 }
 
@@ -68,13 +66,11 @@ int fill_map(char ***map, t_tetr *tetr, int a)
 
 	if (tetr == NULL)
 		return (1);
-	printf("this is letter %c\n", tetr->letter);
-	print_map(*map, a);
-	xy[1] = -1;
-	while (++xy[1] < a)
+	xy[0] = -1;
+	while (++xy[0] < a)
 	{
-		xy[0] = -1;
-		while (++xy[0] < a)
+		xy[1] = -1;
+		while (++xy[1] < a)
 		{
 			if ((try_me(map, tetr, xy, a)))
 			{
