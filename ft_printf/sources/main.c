@@ -3,64 +3,60 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcharman <bcharman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aziza <aziza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/07 16:45:31 by bcharman          #+#    #+#             */
-/*   Updated: 2020/01/07 17:53:02 by bcharman         ###   ########.fr       */
+/*   Updated: 2020/01/08 17:53:46 by aziza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
+#include "../libft/libft.h"
+#include <stdio.h>
 
-char	get_flag(char *format)
+char	get_flag(t_out *p)
 {
-	format++;
-	if (*format == '#')
+	p->format++;
+	if (*(p->format) == '#')
 		return ('#');
 	return (0);
 }
 
-int		parse_it(va_list ap, char *format)
+void	parse_it(t_out *p)
 {
-	char	x;
-	int		nbyte;
-	char	flag;
-
-	nbyte = 0;
-	x = (char)va_arg(ap, int);
-	if ((flag = get_flag(format)))
-		ft_putstr("There is flag!\n");
-	else
-		ft_putstr("No flag\n");
-	ft_putchar(x);
-	return (2);
+	p->flag = 0;
+	p->min_width = 0;
+	p->precision = 0;
+	p->flag = get_flag(p);
+	get_width(p);
+	printf("\nWidth: %d\n", p->min_width);
 }
 
 int		ft_printf(char *format, ...)
 {
-	va_list ap;
-	int		nbyte;
+	t_out p;
 
-	nbyte = 0;
-	va_start(ap, format);
-	while (*format)
+	p.format = format;
+	p.nbyte = 0;
+	va_start(p.ap, format);
+	while (*p.format)
 	{
-		while (*format && *format != '%')
+		while (*p.format && *p.format != '%')
 		{
-			ft_putchar(*format);
-			format++;
+			ft_putchar(*p.format);
+			p.format++;
 		}
-		if (*format == '%')
+		if (*p.format == '%')
 		{
-			format += parse_it(ap, format);
+			parse_it(&p);
 		}
 	}
-	va_end(ap);
-	return (nbyte);
+	va_end(p.ap);
+	return (p.nbyte);
 }
 
 int		main(void)
 {
-	ft_printf("Hello %#c%#c\n", 'u', 'y');
+	ft_printf("Hello %42c%42c\n", 'u', 'y');
 	return (0);
 }

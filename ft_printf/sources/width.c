@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   width.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aziza <aziza@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/06 19:45:09 by vletterp          #+#    #+#             */
-/*   Updated: 2020/01/08 17:49:50 by aziza            ###   ########.fr       */
+/*   Created: 2020/01/08 17:08:40 by aziza             #+#    #+#             */
+/*   Updated: 2020/01/08 17:49:16 by aziza            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
-# include "../libft/libft.h"
-# include <stdarg.h>
+#include "../includes/ft_printf.h"
 
-typedef struct			s_out
+
+void    get_width(t_out *p)
 {
-	int					nbyte;
-	short				flag;
-	int					min_width;
-	int					precision;
-	va_list				ap;
-	char				*format;
-}                       t_out;
-
-void    get_width(t_out *p);
-#endif
+	if (*(p->format) > '0' && *(p->format) <= '9')
+	{
+		p->min_width = 1 > ft_atoi(p->format) ? 1 : ft_atoi(p->format);
+		while (*p->format >= '0' && *p->format <= '9')
+			p->format++;
+	}
+}
