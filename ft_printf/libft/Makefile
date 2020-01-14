@@ -12,8 +12,8 @@
 
 NAME = libft.a
 
-SRC = ft_*.c get_next_line.c
-OUT = ft_*.o get_next_line.o
+SRC = ft_*.c
+OUT = ft_*.o
 INCLUDES = ./
 
 all: $(NAME)
